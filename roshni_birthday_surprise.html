@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Happy Birthday Chiku — Roshni ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070712;--panel:#0f1724;--accent:#ff6b9a;--gold:#ffd27a;--soft:#fff7f9}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Poppins,system-ui,Arial;background:linear-gradient(180deg,#05060a 0%, #0b0f1a 100%);color:var(--soft);-webkit-font-smoothing:antialiased}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+  .card{width:100%;max-width:420px;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(0,0,0,0.14));box-shadow:0 30px 80px rgba(2,6,23,0.7)}
+  .stage{position:relative;padding:26px;height:780px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  header{width:100%;display:flex;flex-direction:column;align-items:center}
+  header h1{font-family:'Great Vibes',cursive;color:var(--gold);font-size:44px;margin:0}
+  header .sub{font-size:12px;opacity:0.85;margin-top:2px}
+
+  .visual{width:100%;height:300px;border-radius:14px;background:radial-gradient(circle at 20% 10%, rgba(255,107,154,0.06), transparent), url('') center/cover no-repeat;position:relative;overflow:hidden}
+  /* stars */
+  .stars{position:absolute;inset:0;pointer-events:none}
+
+  .shayari-box{width:100%;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));backdrop-filter:blur(6px)}
+  .shayari-lines{font-size:18px;line-height:1.35;color:#ffeef4;text-align:center}
+  .line{opacity:0;transform:translateY(16px);filter:blur(6px)}
+  .line.show{opacity:1;transform:translateY(0);filter:blur(0);transition:all 600ms cubic-bezier(.2,.9,.3,1)}
+  .bigLine{font-size:20px;font-weight:600}
+
+  .wish{margin-top:6px;text-align:center}
+  .wish .big{font-family:'Great Vibes',cursive;font-size:48px;color:var(--accent);opacity:0;transform:scale(.98);transition:all 600ms ease}
+  .wish .big.show{opacity:1;transform:scale(1)}
+  .wish .nick{font-size:14px;margin-top:6px;opacity:0.95}
+
+  .promiseWrap{width:100%;display:flex;flex-direction:column;align-items:center;margin-top:6px}
+  .lockBtn{background:linear-gradient(90deg,#ff6b9a, #ff9fb8);border:none;padding:10px 14px;border-radius:999px;color:#111;font-weight:700;cursor:pointer}
+  .promiseBox{margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));padding:14px;border-radius:12px;max-width:360px;text-align:center;opacity:0;transform:translateY(8px);transition:all 600ms ease}
+  .promiseBox.show{opacity:1;transform:translateY(0)}
+  .promiseBox p{margin:8px 0;font-size:15px;color:#ffe7ee}
+
+  .controls{display:flex;gap:8px;margin-top:8px}
+  .btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--soft);font-weight:600;backdrop-filter:blur(4px);cursor:pointer}
+
+  .footer{position:absolute;left:18px;bottom:14px;opacity:0.75;font-size:12px}
+
+  /* fireworks */
+  .fwLayer{position:absolute;inset:0;pointer-events:none}
+
+  @media(max-width:420px){ .stage{height:860px} header h1{font-size:40px} .wish .big{font-size:40px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" role="region" aria-label="Birthday Surprise for Chiku">
+    <div class="stage" id="stage">
+      <header>
+        <h1>Happy Birthday — Chiku</h1>
+        <div class="sub">A small surprise from Anish ♥</div>
+      </header>
+
+      <div class="visual" aria-hidden="true">
+        <canvas class="stars" id="starsCanvas"></canvas>
+        <div style="position:absolute;inset:0;pointer-events:none"></div>
+      </div>
+
+      <div class="shayari-box">
+        <div class="shayari-lines" id="shayariLines">
+          <div class="line">Jab se tu mili hai,</div>
+          <div class="line">Zindagi se har pal nikal aaya ek naya rang,</div>
+          <div class="line">Teri muskaan ne mujhe khud se zyada jeena sikhaya,</div>
+          <div class="line">Tu mere liye sirf pyaar nahi— ek zindagi ban gayi hai.</div>
+          <div class="line bigLine">Happy Birthday… My Chiku 💗🎂✨</div>
+        </div>
+      </div>
+
+      <div class="wish">
+        <div class="big" id="mainWish">Roshni — My Chiku ❤️</div>
+        <div class="nick">— From Anish</div>
+      </div>
+
+      <div class="promiseWrap">
+        <button class="lockBtn" id="revealBtn">Tap to Reveal My Promise 💌</button>
+        <div class="promiseBox" id="promiseBox" aria-hidden="true">
+          <p>Main hamesha tujhe priority dunga.</p>
+          <p>Chahe mood kaisa bhi ho — main tere saath rahunga.</p>
+          <p>Teri respect sabse pehle, aur pyaar hamesha anmol.</p>
+          <p>Bas ek promise — main har din tumhe pyar karunga. ❤️</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="openNow">Preview</button>
+        <button class="btn" id="toggleMusic">Toggle Music</button>
+      </div>
+
+      <div class="fwLayer" id="fwLayer"></div>
+
+      <div class="footer">Open at midnight for full magic — or Preview now</div>
+    </div>
+  </div>
+</div>
+
+<!-- Music: Replace the src with a local filename (e.g., "sab_tera_piano.mp3") or an online mp3 URL you trust. -->
+<audio id="bgm" loop>
+  <source src="https://example.com/sab_tera_piano.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+// timings
+const lineDelays = [0,1500,3400,5600,8200];
+const wishDelay = 9800; const promiseRevealDelay = 12500; const fireworksDelay = 15500;
+
+const lines = document.querySelectorAll('.line');
+const mainWish = document.getElementById('mainWish');
+const promiseBox = document.getElementById('promiseBox');
+const revealBtn = document.getElementById('revealBtn');
+const openNow = document.getElementById('openNow');
+const bgm = document.getElementById('bgm');
+const toggleMusic = document.getElementById('toggleMusic');
+const fwLayer = document.getElementById('fwLayer');
+
+// reveal lines
+lines.forEach((el, i)=>{ setTimeout(()=> el.classList.add('show'), lineDelays[i] || 0); });
+setTimeout(()=>{ mainWish.classList.add('show'); tryPlay(); }, wishDelay);
+setTimeout(()=>{ /* auto show reveal button pulse */ revealBtn.animate([{transform:'scale(1)'},{transform:'scale(1.03)'}],{duration:900,iterations:3}); }, promiseRevealDelay-600);
+
+// preview shortcut
+openNow.addEventListener('click', ()=>{ lines.forEach(el=> el.classList.add('show')); mainWish.classList.add('show'); revealPromise(); tryPlay(); launchFireworks(); });
+
+// promise reveal
+function revealPromise(){ promiseBox.classList.add('show'); promiseBox.setAttribute('aria-hidden','false'); }
+revealBtn.addEventListener('click', ()=>{ revealPromise(); launchFireworks(); });
+
+// music controls
+function tryPlay(){ bgm.play().catch(()=>{ toggleMusic.textContent='Enable Music'; }); }
+toggleMusic.addEventListener('click', ()=>{ if(bgm.paused) { bgm.play(); toggleMusic.textContent='Music On'; } else { bgm.pause(); toggleMusic.textContent='Music Off'; } });
+
+// small stars canvas
+const canvas = document.getElementById('starsCanvas'); const ctx = canvas.getContext('2d'); function resize(){ canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; } window.addEventListener('resize', resize); resize();
+const stars=[]; function spawnStar(){ const x = Math.random()*canvas.width; const y = Math.random()*canvas.height*0.6; const r = 0.6+Math.random()*2; stars.push({x,y,r,alpha:0,vy:0.002+Math.random()*0.02}); }
+setInterval(()=>{ if(stars.length<60 && Math.random()<0.9) spawnStar(); },200);
+function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let i=0;i<stars.length;i++){ const s=stars[i]; s.alpha += s.vy; if(s.alpha>1) s.alpha=0.8; ctx.beginPath(); ctx.fillStyle = `rgba(255,220,240,${Math.min(1,s.alpha)})`; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(draw); } draw();
+
+// falling petals (gentle)
+(function petals(){ const layer = document.createElement('canvas'); layer.width = canvas.width; layer.height = canvas.height; layer.style.position='absolute'; layer.style.left=0; layer.style.top=0; layer.style.pointerEvents='none'; document.querySelector('.visual').appendChild(layer); const pctx = layer.getContext('2d'); let petalsArr = [];
+ function spawn(){ const x = Math.random()*layer.width; const y = -10; const size = 6+Math.random()*18; petalsArr.push({x,y,size,rot:Math.random()*Math.PI,vy:1+Math.random()*1.6,rx:(Math.random()-0.5)*0.02}); }
+ setInterval(()=>{ if(petalsArr.length<20 && Math.random()<0.9) spawn(); },400);
+ function anim(){ pctx.clearRect(0,0,layer.width,layer.height); for(let i=petalsArr.length-1;i>=0;i--){ const p=petalsArr[i]; p.y += p.vy; p.x += Math.sin(p.y*0.02)*1.2; p.rot += p.rx; pctx.save(); pctx.translate(p.x,p.y); pctx.rotate(p.rot); pctx.fillStyle='rgba(255,140,168,0.85)'; pctx.beginPath(); pctx.ellipse(0,0,p.size*0.6,p.size*0.35,0,0,Math.PI*2); pctx.fill(); pctx.restore(); if(p.y>layer.height+30) petalsArr.splice(i,1); }
+ requestAnimationFrame(anim); } anim(); }());
+
+// fireworks (simple)
+function launchFireworks(){ const c = document.createElement('canvas'); c.width = fwLayer.clientWidth; c.height = fwLayer.clientHeight; c.style.position='absolute'; c.style.left=0; c.style.top=0; fwLayer.appendChild(c); const f = c.getContext('2d'); const parts=[];
+ function burst(x,y,color){ const cnt = 36+Math.round(Math.random()*40); for(let i=0;i<cnt;i++){ const a = Math.random()*Math.PI*2; const s = (2+Math.random()*5); parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:0,color}); } }
+ burst(c.width*0.3,c.height*0.4,'#ff9fb8'); setTimeout(()=>burst(c.width*0.6,c.height*0.32,'#ffd27a'),500); setTimeout(()=>burst(c.width*0.5,c.height*0.5,'#ff6b9a'),1000);
+ let t=0; function a(){ f.clearRect(0,0,c.width,c.height); for(let i=parts.length-1;i>=0;i--){ const p=parts[i]; p.x+=p.vx; p.y+=p.vy+0.02*p.life; p.vx*=0.995; p.vy*=0.995; p.life++; f.globalAlpha = Math.max(0,1 - p.life/90); f.fillStyle = p.color; f.beginPath(); f.arc(p.x,p.y, Math.max(1,3 - p.life*0.03),0,Math.PI*2); f.fill(); if(p.life>90) parts.splice(i,1); } t++; if(t<300) requestAnimationFrame(a); else setTimeout(()=>c.remove(),900); } a(); }
+
+// accessibility: if open exactly at midnight local time, instant reveal
+function checkMidnight(){ const now = new Date(); if(now.getHours()===0 && now.getMinutes()===0) { openNow.click(); } }
+setInterval(checkMidnight,14000); checkMidnight();
+
+</script>
+</body>
+</html>
